@@ -9,17 +9,17 @@ pairs2 = [(0, 1), (2, 1), (2, 3), (3, 4), (4, 0), (4, 2)]
 # 这个问题是DFS，因为用了递归，所以是深度优先的。
 
 def visit(pairs, start, visited):
-    if visited[start]:
+    if start in visited:
         return True
-    visited[start] = True
+    visited.add(start)
     for node in [node for (dep, node) in pairs if dep == start]:
-        if(visit(pairs, node, visited[:])):
+        if(visit(pairs, node, visited.copy())):
             return True
     return False
 
 def has_cycle(pairs):
     for i in range(n):
-        if visit(pairs, i, [False] * n):
+        if visit(pairs, i, set()):
             return True
     return False
 
